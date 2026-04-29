@@ -1,0 +1,95 @@
+import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+
+import appCss from "../styles.css?url";
+
+function NotFoundComponent() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <div className="font-display text-[120px] leading-none">404</div>
+        <h2 className="mt-2 text-xl font-medium">Page not found</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+        <div className="mt-6">
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center rounded-full bg-ink text-paper px-5 py-2.5 text-sm"
+          >
+            Back to index
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: "Dhruvil Parekh — Lead QA Engineer · ISTQB Certified" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Dhruvil Parekh — Lead QA Engineer with 9.5+ years across MedTech, Fintech, Retail Kiosks and VR/AR. FDA-regulated validation, payments, and zero critical defects.",
+      },
+      { name: "author", content: "Dhruvil Parekh" },
+      { property: "og:title", content: "Dhruvil Parekh — Lead QA Engineer · ISTQB Certified" },
+      {
+        property: "og:description",
+        content:
+          "9.5+ years owning quality across MedTech, Fintech, Retail and VR. Zero critical defects. ISTQB Certified.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Dhruvil Parekh — Lead QA Engineer · ISTQB Certified" },
+      { name: "description", content: "Portfolio Spotlight designs professional, animated portfolios to impress recruiters and enhance selection chances." },
+      { property: "og:description", content: "Portfolio Spotlight designs professional, animated portfolios to impress recruiters and enhance selection chances." },
+      { name: "twitter:description", content: "Portfolio Spotlight designs professional, animated portfolios to impress recruiters and enhance selection chances." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a21bbe1d-ee66-4ba6-b313-d1c80a71295e/id-preview-f94e74bd--d190c136-bb80-4761-85ca-2334a3e10932.lovable.app-1777441548983.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a21bbe1d-ee66-4ba6-b313-d1c80a71295e/id-preview-f94e74bd--d190c136-bb80-4761-85ca-2334a3e10932.lovable.app-1777441548983.png" },
+    ],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
+    ],
+  }),
+  shellComponent: RootShell,
+  component: RootComponent,
+  notFoundComponent: NotFoundComponent,
+});
+
+function RootShell({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+function RootComponent() {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <SiteHeader />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
